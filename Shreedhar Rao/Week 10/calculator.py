@@ -23,6 +23,32 @@ def updateText():
         currentText = currentText[:12]
     calcLabel.configure(text=currentText)
 
+def performOperation():
+    global currentText
+    global num
+    global op
+
+    currentNum = float(currentText)
+
+    if op == '+':
+        result = num + currentNum
+        currentText = str(result)
+    if op == '-':
+        result = num - currentNum
+        currentText = str(result)
+    if op == 'X':
+        result = num * currentNum
+        currentText = str(result)
+    if op == '/':
+        if currentNum == 0:
+            currentText = "0"
+        else:
+            result = num / currentNum
+            currentText = str(result)
+
+    num = float(currentText)
+    updateText()
+
 def CE():
     global currentText
     global num
@@ -44,11 +70,30 @@ def Back():
 
 def plus_minus():
     global currentText
+    if currentText =="0":
+        return
     if '-' in currentText:
          currentText = currentText.replace('-', ' ')
     else:
         currentText = '-' + currentText
     updateText()
+
+def operations(str):
+    global currentText
+    global num
+    global op
+
+    if op == "":
+        num = float(currentText) #store current number
+        currentText = "0" #doesn't show new number
+    else:
+        performOperation()
+
+    if str != '=':
+        op = str
+        currentText = '0'
+    else:
+        op = "str"
 
 app = ctk.CTk()
 app.geometry("350x502")
@@ -105,7 +150,8 @@ btndel.grid(row=0, column=2, padx=2, pady=2)
 btnDiv = ctk.CTkButton(btnFrame, width=75, height=65,
                        text="➗",
                        bg_color="white", fg_color="gray",
-                       anchor="center", font=ctk.CTkFont(size=30))
+                       anchor="center", font=ctk.CTkFont(size=30),
+                       command=lambda: operations('/'))
 
 btnDiv.grid(row=0, column=3, padx=2, pady=2)
 
@@ -136,7 +182,8 @@ btn9.grid(row=1, column=2, padx=2, pady=2)
 btnmult = ctk.CTkButton(btnFrame, width=75, height=65,
                         text="X",
                         bg_color="white", fg_color="gray",
-                        anchor="center", font=ctk.CTkFont(size=30))
+                        anchor="center", font=ctk.CTkFont(size=30),
+                       command=lambda: operations('X'))
 
 btnmult.grid(row=1, column=3, padx=2, pady=2)
 
@@ -166,7 +213,8 @@ btn6.grid(row=2, column=2, padx=2, pady=2)
 btnsub = ctk.CTkButton(btnFrame, width=75, height=65,
                        text="-",
                        bg_color="white", fg_color="gray",
-                       anchor="center", font=ctk.CTkFont(size=30))
+                       anchor="center", font=ctk.CTkFont(size=30),
+                       command=lambda: operations('-'))
 
 btnsub.grid(row=2, column=3, padx=2, pady=2)
 
@@ -197,7 +245,8 @@ btn3.grid(row=3, column=2, padx=2, pady=2)
 btnadd = ctk.CTkButton(btnFrame, width=75, height=65,
                        text="+",
                        bg_color="white", fg_color="gray",
-                       anchor="center", font=ctk.CTkFont(size=30))
+                       anchor="center", font=ctk.CTkFont(size=30),
+                       command=lambda: operations('+'))
 
 btnadd.grid(row=3, column=3, padx=2, pady=2)
 
@@ -227,7 +276,8 @@ btnperiod.grid(row=4, column=2, padx=2, pady=2)
 btnequal = ctk.CTkButton(btnFrame, width=75, height=65,
                          text="=",
                          bg_color="white", fg_color="gray",
-                         anchor="center", font=ctk.CTkFont(size=30))
+                         anchor="center", font=ctk.CTkFont(size=30),
+                       command=lambda: operations('='))
 
 btnequal.grid(row=4, column=3, padx=2, pady=2)
 
