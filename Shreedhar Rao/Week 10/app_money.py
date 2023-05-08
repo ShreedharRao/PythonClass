@@ -1,67 +1,15 @@
 import customtkinter as ctk
 
-currentText = "0"
-num = 0
-op = ""
-def addText(str):
-    global currentText
-    if float(currentText) == 0 and str != '.' and '.' not in currentText:
-        currentText = ""
-        currentText = currentText + str
-    elif str == '.' and '.' in currentText:
-        currentText = currentText
-    else:
-        currentText = currentText + str
-
-    updateText()
-
-def updateText():
-    global currentText
-    if len(currentText) ==0:
-        currentText ="0"
-    if len(currentText) > 12:
-        currentText = currentText[:12]
-    calcLabel.configure(text=currentText)
-
-def CE():
-    global currentText
-    global num
-    global op
-    currentText = "0"
-    num = 0
-    op = ""
-    updateText()
-
-def C():
-    global currentText
-    currentText = "0"
-    updateText()
-
-def Back():
-    global currentText
-    currentText = currentText[0:len(currentText)-1>0]
-    updateText()
-
-def plus_minus():
-    global currentText
-    if '-' in currentText:
-         currentText = currentText.replace('-', ' ')
-    else:
-        currentText = '-' + currentText
-    updateText()
-
 app = ctk.CTk()
-app.geometry("350x502")
-app.title("Calculator")
+app. geometry("400x600")
+app.title("Money Conversion")
 
-app.configure(bg_color="white",
-              fg_color="white")
+app.configure(bg_color="white", fg_color="white")
 
-calcFrame = ctk.CTkFrame(app, width=340, height=70,
+convFrame = ctk.CTkFrame(app, width=350, height=80,
                          bg_color="white",
-                         fg_color="white")
-
-calcFrame.grid(row=0, column=0, padx=5, pady=5)
+                         fg_color="grey")
+convFrame.grid(row=0, column=0, padx=7, pady=7)
 
 calcLabel = ctk.CTkLabel(calcFrame, text="0", width=340, height=50,
                          anchor="ne",
@@ -97,8 +45,7 @@ btnC.grid(row=0, column=1, padx=2, pady=2)
 btndel = ctk.CTkButton(btnFrame, width=75, height=65,
                        text="del",
                        bg_color="white", fg_color="gray",
-                       anchor="center", font=ctk.CTkFont(size=30),
-                       command=lambda: Back())
+                       anchor="center", font=ctk.CTkFont(size=30))
 
 btndel.grid(row=0, column=2, padx=2, pady=2)
 
@@ -201,12 +148,11 @@ btnadd = ctk.CTkButton(btnFrame, width=75, height=65,
 
 btnadd.grid(row=3, column=3, padx=2, pady=2)
 
-btnplus_minus = ctk.CTkButton(btnFrame, width=75, height=65,
+btndouble = ctk.CTkButton(btnFrame, width=75, height=65,
                           text="+/-",
                           text_color="black", bg_color="white", fg_color="gray75",
-                          anchor="center", font=ctk.CTkFont(size=30),
-                                command=lambda: plus_minus())
-btnplus_minus.grid(row=4, column=0, padx=2, pady=2)
+                          anchor="center", font=ctk.CTkFont(size=30))
+btndouble.grid(row=4, column=0, padx=2, pady=2)
 
 btn0 = ctk.CTkButton(btnFrame, width=75, height=65,
                      text="0",
@@ -230,5 +176,11 @@ btnequal = ctk.CTkButton(btnFrame, width=75, height=65,
                          anchor="center", font=ctk.CTkFont(size=30))
 
 btnequal.grid(row=4, column=3, padx=2, pady=2)
+
+
+
+
+
+
 
 app.mainloop()
